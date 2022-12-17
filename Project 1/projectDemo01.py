@@ -1,8 +1,12 @@
 import mysql.connector
 from projectArt import boy
-
-print(f"welcome to student contact console base database application \n{boy}")
+from tkinter import *
 from projectLib import *
+
+
+window=Tk()
+window.title("Project_1__p-10")
+print(f"welcome to student contact console base database application \n{boy}")
 
 myDB = mysql.connector.connect(
     host='127.0.0.1',
@@ -20,8 +24,12 @@ while True:
     elif inp == 1:
         queryDB = 'SELECT * FROM studentContact'
         cursorDB.execute(queryDB)
+        list1=list()
         for result in cursorDB:
-            print(result)
+            list1.append(result)
+        lbl = Label(window, text=f"{list1}", fg='black', bg='skyblue',width=50,height=10 )
+        lbl.pack()
+        window.mainloop()
     elif inp == 2:
         newRecord()
         queryDB = 'INSERT INTO studentContact (name, roll_no, contact_no, city) VALUES (%s,%s,%s,%s)'
@@ -40,3 +48,4 @@ while True:
     else:
         raise BadChoicError
     myDB.commit()
+
